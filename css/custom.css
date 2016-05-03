@@ -1,6 +1,57 @@
 @charset "UTF-8";
 /* CSS Document */
 
+.surface {
+	position: absolute;
+	top: 90px;
+	bottom: 90px;
+	left: 0;
+	right: 0;
+}
+
+.top-bar {
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	height: 90px;
+	background-color: rgba(0, 0, 0, .5);
+}
+
+.bottom-bar {
+	position: absolute;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	height: 90px;
+	background-color: rgba(0, 0, 0, .5);
+}
+
+.bottom-bar img {
+	margin-top: 9px;
+	margin-left: 20px;
+}
+
+.message {
+	color: white;
+	position: absolute;
+	top: 45%;
+	left: 33%;
+	font-size: 55px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.graphic {
+	position: absolute;
+	top: 50%;
+	right: 33%;
+}
+
+#stat-val {
+	font-size: 108px;
+}
+
 .header {
 	background-color: #262525;
 	padding-bottom: 70px;	
