@@ -1,49 +1,43 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Enigin</title>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<link href="css/custom.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-body {
-	background-color: #d3756b;
-}
-</style>
+	<meta charset="UTF-8">
+	<title>Washing - Parkland Energy</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+		crossorigin="anonymous">
+	<link href="css/custom.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		body {
+			background-color: #d3756b;
+		}
+		.top-bar { background-color: #d73625; }
+		.bottom-bar { background-color: #d73625; }
+	</style>
 </head>
 
 <body>
+	<div class="top-bar"></div>
+	<div class="surface">
 
+		<h1 class="message" style="margin-top: -206px; margin-left: -364px;">
+			CURRENTLY,<br/> 
+			ONE HOUR OF ENERGY AT<br />
+			PARKLAND IS EQUIVALENT<br/>
+			TO WASHING CLOTHES FOR<br>
+			<span id="stat-val">15</span> <br>
+			HOURS
+		</h1>
 
-
-
-<div class="headerwashing">
-</div>
-
-<div class="contentwashing">
-	<div class="row">
-   		<div class="col-lg-1">
-        </div>
-		<div class="col-lg-5">
-       	 <strong>ONE HOUR OF ENERGY AT<br>
-				 PARKLAND IS EQUIVALENT TO A WASHING MACHINE RUNNING FOR 15 HOURS</strong>
-   	    </div>
-    	<div class="col-lg-5">
-         <img src="img/washing.png" width="382" height="380" alt=""/></div>
-        <div class="col-lg-1">
-        </div>
-    </div>
-</div>
-
-<div class="footerwashing">
-
-    <div class="col-sm-1">
-    	<div class="light">
-			<img src="img/Light_On_Washing.png" width="50" height="71" alt="Light_Off"/>
-        </div>
-    </div>
-</div>
-
+		<img src="img/washing.png" width="382" height="380" alt="washing machine" class="graphic" style="margin-top: -190px; margin-right: -191px;"
+		/>
+	</div>
+	<div class="bottom-bar">
+		<img src="img/Light_On_Washing.png" width="190" height="273" alt="Light On" />
+	</div>
+	
+	<script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
+	<script src="js/site.js" type="text/javascript"></script>
 </body>
 
 </html>
