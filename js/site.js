@@ -111,12 +111,16 @@ $(function () {
     }
     
     function getNextPage(){
-        var currentIdx = pageOrder.indexOf(currentPage) || 0;
-        var nextIdx = currentIdx > (pageOrder.length -1) 
-                    ? 0
+        var currentIdx = pageOrder.indexOf(currentPage);
+        if(currentIdx < 0){
+            currentIdx = 0; // just start over if something breaks
+        }
+        var nextIdx = currentIdx >= (pageOrder.length -1) 
+                    ? 0 // start back over
                     : currentIdx + 1;
         
-        return pageOrder[nextIdx];
+        var pg =  pageOrder[nextIdx];
+        return pg || pageOrder[0];
     }
         
     function getCurrentPage(){
