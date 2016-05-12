@@ -2,18 +2,26 @@ $(function () {
 
     var sample = `{"currencySymbol": "$", "logo": "", "renderId": "5", "cost": "$15.16", "carbon": "206kg", "kWAlarm": 0, "voltsAlarm": 0, "voltsAlarm2": 0, "pfAlarm": 0, "customMessageUpTime": 15, "customMessageDownTime": 300, "customMessageStatus": 1, "customMessageTitle": "What is this?", "customMessage": "It is a Real-time Energy Display! It shows us exactly how much energy we are using...as we use it.Energy use is normally invisible, that is why it is so easy to waste it. However, this display shows us how our behaviour impacts our energy use and by extension our carbon footprint.How can you help?By keeping it green! The main dial will turn orange when we are using too much energy so please do whatever you can to avoid wasting energy and keep our display green!Thank you!", "MeterCounter": 1, "NullCounter": 0, "ipAddress": "216.125.253.2", "Volts": 286.02474975586, "PF": 0.86324125528336, "KW": 216.53246875, "Current": 294.07421875, "GraphUnit": "kW", "GraphValue": 216.53246875, "PulseCounter": 6.625, "PulseLabel": "", "PowerRatio": "", "PowerUnit": "", "Input1High":0, "Input1Low":0, "Input2High":0, "Input2Low":0, "Output1Status":0, "Output2Status":0}`;
     
-    var updateHandle = null;
-    var pageCycleDelay = (2 * 60 * 1000); // 2 minutes
-    var statUpdateInterval = (10 * 1000); // every 10 seconds
+    var PAGE_CYCLE_DELAY = (2 * 60 * 1000); // 2 minutes
+    var STAT_UPDATE_INTERVAL = (10 * 1000); // every 10 seconds
+    
     var pageOrder = [
         "index.html",
         "biking.html",
         "burrito.html",
         "macbook.html",
         "phone.html",
-        "washing.html"
+        "washing.html",
+        "enigin-realtime.html"
     ];
+    
     var currentPage = getCurrentPage();
+    var updateHandle = null;
+    var queryStringValues = parseQueryStringValues();
+    
+    var ipAddress = queryStringValues["ipAddress"] || "216.125.253.212";
+    var buildingName = queryStringValues["buildingName"] || "XL Wing";
+    
     var CALS_PER_KWH = 859.84522785899; // Calories in a Kilowatt
     var BURRITO_CALS = 350; 
     var BIKING_CALS = 680;
@@ -30,7 +38,7 @@ $(function () {
     
     function startStatUpdates(){
         
-        updateHandle = setInterval(updateStats, statUpdateInterval);
+        updateHandle = setInterval(updateStats, STAT_UPDATE_INTERVAL);
         updateStats(); // do one when the page loads
         
         function updateStats(){
@@ -70,6 +78,7 @@ $(function () {
             
             stat = stat.toFixed(1);
             $("#stat-val").text(stat);
+            $("#bldg-name").text(buildingName);
         }
         
         
@@ -79,7 +88,7 @@ $(function () {
             
             return $.ajax({
                 dataType: 'html',
-                url: 'http://faa.parkland.edu/amp_dev/data.php?stamp=' + new Date().getTime()
+                url: 'http://faa.parkland.edu/amp_dev/data.php?ipAddress=' + ipAddress + '&stamp=' + new Date().getTime()
             })
             .then(function(resp){
                 return JSON.parse(resp);  
@@ -98,7 +107,7 @@ $(function () {
         
         var nextPage = getNextPage();
         
-        setTimeout(moveToNextPage, pageCycleDelay);
+        setTimeout(moveToNextPage, PAGE_CYCLE_DELAY);
 
         function moveToNextPage(){
             
@@ -106,7 +115,10 @@ $(function () {
                 clearInterval(updateHandle);
             }
             
-            document.location.assign(nextPage);
+            var qs = $.param({ ipAddress: ipAddress, buildingName: buildingName });
+            var url = nextPage + "?" + qs;
+            
+            document.location.assign(url);
         }
     }
     
@@ -129,6 +141,21 @@ $(function () {
         var page = path.substring(lastSlash + 1) || "index.html";
         
         return page.toLowerCase();
+    }
+    
+    function parseQueryStringValues() {
+        var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
+
+        var urlParams = {};
+        while (match = search.exec(query)){
+            urlParams[decode(match[1])] = decode(match[2]);
+        }
+        
+        return urlParams;
     }
     
 });
